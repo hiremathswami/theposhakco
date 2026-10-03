@@ -34,18 +34,19 @@ export function Footer() {
         <div className="md:col-span-2">
           <h3 className="eyebrow mb-4 font-sans">Help</h3>
           <div className={col}>
-            <span>Size Guide</span>
-            <span>Shipping & Returns</span>
-            <span>FAQs</span>
-            <span>Contact Us</span>
+            <Link to="/contact">Contact & Grievances</Link>
+            <Link to="/shipping-policy">Shipping Policy</Link>
+            <Link to="/returns-refunds">Returns & Refunds</Link>
+            <Link to="/cancellation-policy">Cancellation Policy</Link>
+            <Link to="/about">Our Story</Link>
           </div>
         </div>
         <div className="md:col-span-2">
-          <h3 className="eyebrow mb-4 font-sans">About</h3>
+          <h3 className="eyebrow mb-4 font-sans">Legal</h3>
           <div className={col}>
-            <Link to="/about">Our Story</Link>
-            <span>Privacy Policy</span>
-            <span>Terms</span>
+            <Link to="/terms-and-conditions">Terms & Conditions</Link>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/cookie-policy">Cookie Policy</Link>
           </div>
         </div>
         <div className="md:col-span-3">
