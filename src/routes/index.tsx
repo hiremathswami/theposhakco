@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Star } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/hero-wide.jpg";
 import story from "@/assets/story.jpg";
 import cMen from "@/assets/c-men.jpg";
 import cWomen from "@/assets/c-women.jpg";
@@ -53,42 +53,37 @@ function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative -mt-16 overflow-hidden md:-mt-[72px]">
-        <div className="grid md:grid-cols-[1fr_22%]">
-          <div className="grain relative min-h-[620px] bg-sand md:min-h-[720px]">
-            <img src={hero} alt="Model wearing an oversized black graphic tee" width={1600} height={1104} className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
-            <div className="absolute inset-0 bg-gradient-to-r from-sand/90 via-sand/50 to-transparent md:via-sand/30" />
-            <div className="relative mx-auto flex h-full max-w-[1400px] flex-col justify-center px-4 pb-16 pt-32 md:px-8">
-              <p className="eyebrow mb-5">Indian Streetwear</p>
-              <h1 className="display-xl max-w-[12ch]">
-                <span className="text-ivory [text-shadow:0_1px_0_rgb(0_0_0/0.08)]">Built<br />Different.</span>
-                <br />
-                <span className="text-forest-deep">Worn Better.</span>
-              </h1>
-              <p className="mt-6 max-w-sm font-display text-lg leading-snug">Art. Culture. Streetwear.<br />For a generation that wears meaning.</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/shop" search={{ collection: "new-drop" }} className="btn-solid">Shop the drop <ArrowRight className="h-4 w-4" /></Link>
-              </div>
-              <div className="mt-10 flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {[cMen, cWomen, cGraphic, cOversized].map((s, i) => (
-                    <img key={i} src={s} alt="" className="h-9 w-9 rounded-full border-2 border-ivory object-cover" loading="lazy" />
-                  ))}
-                </div>
-                <div className="text-sm">
-                  <p>Trusted by 10K+ customers</p>
-                  <p className="flex items-center gap-1 text-gold">
-                    {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-current" />)}
-                    <span className="ml-1 text-foreground">4.8/5</span>
-                  </p>
-                </div>
-              </div>
+      <section className="relative -mt-16 overflow-hidden bg-sand md:-mt-[72px]">
+        <img src={hero} alt="Model in an oversized black tarot graphic tee sitting beside a green elephant mural" width={1920} height={960} className="absolute inset-0 h-full w-full object-cover object-[72%_center] md:object-center" />
+        <div className="absolute inset-0 bg-gradient-to-r from-sand/85 via-sand/40 to-transparent md:from-sand/50 md:via-transparent" />
+        <div className="relative mx-auto flex min-h-[620px] max-w-[1400px] flex-col justify-center px-4 pb-16 pt-32 md:min-h-[min(50vw,780px)] md:px-8">
+          <p className="eyebrow mb-5">Indian Streetwear</p>
+          <h1 className="display-xl max-w-[12ch]">
+            <span className="text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.12)]">Built<br />Different.</span>
+            <br />
+            <span className="text-forest-deep">Worn Better.</span>
+          </h1>
+          <p className="mt-6 max-w-sm font-display text-lg leading-snug">Art. Culture. Streetwear.<br />For a generation that wears meaning.</p>
+          <div className="mt-8">
+            <Link to="/shop" search={{ collection: "new-drop" }} className="btn-solid">Shop the drop <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="mt-10 flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {[cMen, cWomen, cGraphic, cOversized].map((s, i) => (
+                <img key={i} src={s} alt="" className="h-9 w-9 rounded-full border-2 border-ivory object-cover" loading="lazy" />
+              ))}
+            </div>
+            <div className="text-sm">
+              <p>Trusted by 10K+ customers</p>
+              <p className="flex items-center gap-1 text-gold">
+                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-current" />)}
+                <span className="ml-1 text-foreground">4.8/5</span>
+              </p>
             </div>
           </div>
-          <div className="relative hidden flex-col justify-end overflow-hidden bg-forest p-8 md:flex">
-            <img src={logo} alt="" className="absolute -right-10 top-24 w-[140%] max-w-none opacity-15 invert" />
-            <div className="relative ml-auto"><VerticalWords words={["Same", "clothes", "different", "people", "bigger", "stories."]} /></div>
-          </div>
+        </div>
+        <div className="absolute bottom-10 right-6 md:right-8">
+          <VerticalWords words={["Same", "clothes", "different", "people", "bigger", "stories."]} />
         </div>
       </section>
 
