@@ -12,3 +12,4 @@
 - Product images are stored in the DB as asset keys (resolved by `img()` in src/lib/catalog.ts) or full URLs, so seeded and uploaded images share one field.
 - Public catalog reads go through server functions in src/lib/products.functions.ts using a publishable-key client; loaders prime React Query with them.
 - Guest cart, wishlist and recently-viewed live in localStorage via StoreProvider (src/lib/store.tsx) until account sync lands.
+- AI stylist recommendations run in a server function (src/lib/stylist.functions.ts) that sends the in-stock catalog to the AI Gateway and keeps only slugs that exist, so the model can never surface unknown products.

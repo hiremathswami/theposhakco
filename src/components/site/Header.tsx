@@ -11,6 +11,7 @@ export const NAV = [
   { label: "Men", to: "/shop", search: { gender: "men" } },
   { label: "Women", to: "/shop", search: { gender: "women" } },
   { label: "Oversized", to: "/shop", search: { collection: "oversized" } },
+  { label: "AI Stylist", to: "/stylist", search: {} },
 ] as const;
 
 export function Header() {
