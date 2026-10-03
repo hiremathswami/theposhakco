@@ -23,6 +23,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ReturnsRefundsRouteImport } from './routes/returns-refunds'
 import { Route as ShippingPolicyRouteImport } from './routes/shipping-policy'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
@@ -105,6 +106,11 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
   id: '/terms-and-conditions',
   path: '/terms-and-conditions',
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
@@ -203,6 +210,7 @@ export interface FileRoutesByTo {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
@@ -260,6 +269,7 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
@@ -341,6 +353,7 @@ export interface RootRouteChildren {
   ReturnsRefundsRoute: typeof ReturnsRefundsRoute
   ShippingPolicyRoute: typeof ShippingPolicyRoute
   ShopRoute: typeof ShopRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   ApiChatRoute: typeof ApiChatRoute
   OrderOrderNumberRoute: typeof OrderOrderNumberRoute
@@ -446,6 +459,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms-and-conditions': {
@@ -563,6 +583,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReturnsRefundsRoute: ReturnsRefundsRoute,
   ShippingPolicyRoute: ShippingPolicyRoute,
   ShopRoute: ShopRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   ApiChatRoute: ApiChatRoute,
   OrderOrderNumberRoute: OrderOrderNumberRoute,
