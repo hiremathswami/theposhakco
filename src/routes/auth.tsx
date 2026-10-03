@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useStore } from "@/lib/store";
+import { useIsAdmin } from "@/lib/admin";
 import authEditorial from "@/assets/auth-editorial.jpg";
 import logo from "@/assets/logo.png";
 
@@ -36,6 +37,7 @@ function AuthPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [mode, setMode] = useState<Mode>("signin");
+  const { isAdmin } = useIsAdmin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -116,7 +118,8 @@ function AuthPage() {
               <h1 className="font-display text-3xl">You're signed in</h1>
               <p className="mt-2 text-sm text-muted-foreground">{user.email}</p>
               <div className="mt-8 flex flex-col gap-3">
-                <Link to="/shop" className="btn-solid">Continue shopping</Link>
+                {isAdmin && <Link to="/admin" className="btn-solid">Open admin panel</Link>}
+                <Link to="/shop" className={isAdmin ? "btn-outline" : "btn-solid"}>Continue shopping</Link>
                 <button onClick={signOut} className="btn-outline">Sign out</button>
               </div>
             </div>

@@ -121,7 +121,7 @@ function CartPage() {
               <div className="flex justify-between"><dt>Shipping</dt><dd>{shipping === 0 ? "Free" : inr(shipping)}</dd></div>
               <div className="flex justify-between border-t border-border pt-4 font-display text-2xl"><dt>Total</dt><dd>{inr(total)}</dd></div>
             </dl>
-            <button onClick={() => toast("Checkout is coming in the next update.")} className="btn-solid mt-6 w-full"><Lock className="h-3.5 w-3.5" /> Proceed to checkout</button>
+            <Link to="/checkout" className="btn-solid mt-6 w-full"><Lock className="h-3.5 w-3.5" /> Proceed to checkout</Link>
             <p className="mt-4 text-xs text-muted-foreground">We accept UPI · Visa · Mastercard · RuPay · Paytm · Cash on Delivery</p>
           </aside>
         </div>
