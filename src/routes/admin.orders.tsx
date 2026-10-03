@@ -86,9 +86,12 @@ function Orders() {
                       {ORDER_STATUSES.map((s) => <option key={s} value={s}>{label(s)}</option>)}
                     </select></label>
                   <label className="block"><span className="eyebrow">Payment</span>
-                    <select defaultValue={o.payment_status} onChange={(e) => update(o.id, { payment_status: e.target.value })} className={`${sel} mt-1 w-full`}>
+                    <select key={o.payment_status} defaultValue={o.payment_status} onChange={(e) => update(o.id, { payment_status: e.target.value })} className={`${sel} mt-1 w-full`}>
                       {PAYMENT_STATUSES.map((s) => <option key={s} value={s}>{label(s)}</option>)}
                     </select></label>
+                  {o.payment_status !== "paid" && (
+                    <button type="button" onClick={() => update(o.id, { payment_status: "paid" })} className="btn-solid w-full !py-2">Mark as paid</button>
+                  )}
                   <label className="block"><span className="eyebrow">Tracking number</span>
                     <input defaultValue={o.tracking_number ?? ""} maxLength={80} onBlur={(e) => e.target.value !== (o.tracking_number ?? "") && update(o.id, { tracking_number: e.target.value || null })} className={`${sel} mt-1 w-full`} /></label>
                   <label className="block"><span className="eyebrow">Notes</span>
