@@ -25,16 +25,16 @@ const str = (v: unknown) => (typeof v === "string" && v.length > 0 && v.length <
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: str(s.q),
-    category: str(s.category),
-    gender: str(s.gender),
-    collection: str(s.collection),
-    sort: str(s.sort),
-    sizes: str(s.sizes),
-    colors: str(s.colors),
-    max: Number(s.max) > 0 ? Number(s.max) : undefined,
-    instock: s.instock === true || s.instock === "true" ? true : undefined,
-    wishlist: s.wishlist === true || s.wishlist === "true" ? true : undefined,
+    q: str(s["q"]),
+    category: str(s["category"]),
+    gender: str(s["gender"]),
+    collection: str(s["collection"]),
+    sort: str(s["sort"]),
+    sizes: str(s["sizes"]),
+    colors: str(s["colors"]),
+    max: Number(s["max"]) > 0 ? Number(s["max"]) : undefined,
+    instock: s["instock"] === true || s["instock"] === "true" ? true : undefined,
+    wishlist: s["wishlist"] === true || s["wishlist"] === "true" ? true : undefined,
   }),
   head: () => ({
     meta: [
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/shop")({
       {Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)}
     </div>
   ),
-  errorComponent: ({ error }) => <div className="p-16 text-center" role="alert">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-16 text-center" role="alert">{(error as Error).message}</div>,
   notFoundComponent: () => <div className="p-16 text-center">No products found.</div>,
   component: Shop,
 });
@@ -75,14 +75,14 @@ const SORTS = [
 const PAGE = 8;
 
 function titleFor(s: Search) {
-  if (s.wishlist) return "Your Wishlist";
-  if (s.q) return `Results for “${s.q}”`;
-  if (s.collection === "new-drop") return "New Drop";
-  if (s.collection === "oversized") return "Oversized";
-  if (s.gender === "men") return "Men";
-  if (s.gender === "women") return "Women";
-  if (s.category === "graphic") return "Graphic Tees";
-  if (s.category === "minimal") return "Minimal Tees";
+  if (s["wishlist"]) return "Your Wishlist";
+  if (s["q"]) return `Results for “${s["q"]}”`;
+  if (s["collection"] === "new-drop") return "New Drop";
+  if (s["collection"] === "oversized") return "Oversized";
+  if (s["gender"] === "men") return "Men";
+  if (s["gender"] === "women") return "Women";
+  if (s["category"] === "graphic") return "Graphic Tees";
+  if (s["category"] === "minimal") return "Minimal Tees";
   return "All Products";
 }
 

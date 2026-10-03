@@ -31,7 +31,7 @@ export const Route = createFileRoute("/product/$slug")({
           ],
         }
       : { meta: [{ title: "Product not found — ThePoshakCo" }, { name: "robots", content: "noindex" }] },
-  errorComponent: ({ error }) => <div className="p-16 text-center" role="alert">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-16 text-center" role="alert">{(error as Error).message}</div>,
   notFoundComponent: ProductNotFound,
   component: ProductPage,
 });
