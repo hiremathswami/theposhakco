@@ -64,6 +64,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "ThePoshakCo — Indian Streetwear" },
       { name: "description", content: "Premium Indian streetwear inspired by art, culture and people." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "ThePoshakCo" },
+      { property: "og:title", content: "ThePoshakCo — Indian Streetwear" },
+      { property: "og:description", content: "Premium Indian streetwear inspired by art, culture and people." },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

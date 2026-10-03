@@ -17,7 +17,26 @@ export const Route = createFileRoute("/product/$slug")({
       context.queryClient.ensureQueryData(productsQuery()),
     ]);
     if (!p) throw notFound();
-    return { title: p.title, description: p.description };
+    const base = "https://theposhakco.lovable.app";
+    const images = p.images.map((k) => { const u = img(k); return u.startsWith("http") ? u : base + u; });
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: p.title,
+      description: p.description,
+      image: images,
+      sku: p.slug,
+      brand: { "@type": "Brand", name: "ThePoshakCo" },
+      offers: {
+        "@type": "Offer",
+        url: `${base}/product/${p.slug}`,
+        price: p.price,
+        priceCurrency: "INR",
+        availability: p.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      },
+      ...(p.review_count > 0 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: p.rating, reviewCount: p.review_count } } : {}),
+    };
+    return { title: p.title, description: p.description, slug: p.slug, jsonLd };
   },
   head: ({ loaderData }) =>
     loaderData
@@ -28,7 +47,10 @@ export const Route = createFileRoute("/product/$slug")({
             { property: "og:title", content: `${loaderData.title} — ThePoshakCo` },
             { property: "og:description", content: loaderData.description.slice(0, 155) },
             { property: "og:type", content: "product" },
+            { property: "og:url", content: `https://theposhakco.lovable.app/product/${loaderData.slug}` },
           ],
+          links: [{ rel: "canonical", href: `https://theposhakco.lovable.app/product/${loaderData.slug}` }],
+          scripts: [{ type: "application/ld+json", children: JSON.stringify(loaderData.jsonLd) }],
         }
       : { meta: [{ title: "Product not found — ThePoshakCo" }, { name: "robots", content: "noindex" }] },
   errorComponent: ({ error }) => <div className="p-16 text-center" role="alert">{(error as Error).message}</div>,
