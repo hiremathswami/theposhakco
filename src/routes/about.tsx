@@ -5,6 +5,7 @@ import story from "@/assets/story.jpg";
 import cMen from "@/assets/c-men.jpg";
 import cWomen from "@/assets/c-women.jpg";
 import cGraphic from "@/assets/c-graphic.jpg";
+import { CONTACT } from "@/lib/contact";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
