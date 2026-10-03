@@ -19,3 +19,4 @@
 - Policy texts live in src/content/policies/*.md with {{token}} placeholders filled from the single store_settings row; admin edits are stored as overrides in policy_pages, so defaults stay in code and edits win.
 - Checkout consent is enforced server-side in placeOrder (acceptTerms must be true); terms acceptance, policy version and optional marketing consent are stored as separate order columns.
 - Router uses react-router-ssr-query so loader-primed queries hydrate on the client without mismatches.
+- Motion timings, easing, variants and the Reveal/MotionProvider (site-level reduce-motion toggle + prefers-reduced-motion) live in src/lib/motion.tsx so all animation shares one set of tokens.

@@ -14,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "@/lib/store";
+import { MotionProvider } from "@/lib/motion";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MiniCart } from "@/components/site/MiniCart";
@@ -101,6 +102,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MotionProvider>
       <StoreProvider>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-primary focus:p-3 focus:text-primary-foreground">Skip to content</a>
         {!bare && <Header />}
@@ -111,6 +113,7 @@ function RootComponent() {
         <MiniCart />
         <Toaster position="bottom-center" />
       </StoreProvider>
+      </MotionProvider>
     </QueryClientProvider>
   );
 }

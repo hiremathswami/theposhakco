@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Heart, Plus } from "lucide-react";
 import { discountPct, img, inr, type Product } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
@@ -7,6 +8,15 @@ import { useStore } from "@/lib/store";
 export function ProductCard({ p, showAdd = false }: { p: Product; showAdd?: boolean }) {
   const { wishlist, toggleWishlist, addToCart } = useStore();
   const [quick, setQuick] = useState(false);
+  const [popHeart, setPopHeart] = useState(false);
+  const like = () => {
+    toggleWishlist(p.id);
+    if (!liked) {
+      setPopHeart(true);
+      setTimeout(() => setPopHeart(false), 340);
+      toast.success(`${p.title} saved to wishlist`);
+    }
+  };
   const liked = wishlist.includes(p.id);
   const off = discountPct(p);
   const soldOut = p.stock <= 0;
@@ -20,8 +30,8 @@ export function ProductCard({ p, showAdd = false }: { p: Product; showAdd?: bool
     <article className="group flex flex-col bg-card">
       <div className="relative aspect-[5/6] overflow-hidden">
         <Link to="/product/$slug" params={{ slug: p.slug }} aria-label={p.title}>
-          <img src={img(p.images[0])} alt={p.title} loading="lazy" width={800} height={960} className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
-          <img src={img(p.images[1] ?? p.images[0])} alt="" loading="lazy" width={800} height={960} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <img src={img(p.images[0])} alt={p.title} loading="lazy" width={800} height={960} className="absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:opacity-0" />
+          <img src={img(p.images[1] ?? p.images[0])} alt="" loading="lazy" width={800} height={960} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-[opacity,transform] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:opacity-100" />
         </Link>
         <div className="pointer-events-none absolute left-3 top-3 flex flex-col gap-1">
           {soldOut ? (
@@ -34,15 +44,15 @@ export function ProductCard({ p, showAdd = false }: { p: Product; showAdd?: bool
           {off > 0 && <span className="bg-blood px-2 py-1 text-[10px] uppercase tracking-widest text-ivory">-{off}%</span>}
         </div>
         <button
-          onClick={() => toggleWishlist(p.id)}
+          onClick={like}
           aria-label={liked ? `Remove ${p.title} from wishlist` : `Add ${p.title} to wishlist`}
           aria-pressed={liked}
-          className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-ivory/80"
+          className={`absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-ivory/80 transition-opacity duration-200 focus-visible:opacity-100 group-hover:opacity-100 ${liked ? "opacity-100" : "opacity-100 md:opacity-0"} ${popHeart ? "animate-pop" : ""}`}
         >
-          <Heart className={`h-4 w-4 ${liked ? "fill-blood text-blood" : ""}`} />
+          <Heart className={`h-4 w-4 transition-colors duration-200 ${liked ? "fill-blood text-blood" : ""}`} />
         </button>
         {!soldOut && !showAdd && (
-          <div className="absolute inset-x-0 bottom-0 translate-y-full bg-ivory/95 p-3 transition-transform group-hover:translate-y-0 group-focus-within:translate-y-0">
+          <div className="absolute inset-x-0 bottom-0 hidden translate-y-full bg-ivory/95 p-3 transition-transform duration-300 ease-out md:block group-hover:translate-y-0 group-focus-within:translate-y-0">
             <p className="eyebrow mb-2 !text-[10px]">Quick add</p>
             <div className="flex gap-1">
               {p.sizes.map((s) => (
