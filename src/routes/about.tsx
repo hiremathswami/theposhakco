@@ -70,6 +70,29 @@ function About() {
           <Link to="/shop" className="btn-outline mt-12 !border-ivory !text-ivory hover:!bg-ivory hover:!text-charcoal">Browse the collection <ArrowRight className="h-4 w-4" /></Link>
         </div>
       </section>
+
+      <section className="mx-auto max-w-[1400px] px-4 py-20 md:px-8">
+        <p className="eyebrow mb-4">Reach us</p>
+        <h2 className="display-lg max-w-xl">Talk to us<br />anytime.</h2>
+        <div className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <a href={`mailto:${CONTACT.email}`} className="group bg-card p-6 hover:bg-sand">
+            <p className="eyebrow">Email</p>
+            <p className="mt-2 break-all text-sm font-medium">{CONTACT.email}</p>
+          </a>
+          <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer" className="group bg-card p-6 hover:bg-sand">
+            <p className="eyebrow">WhatsApp</p>
+            <p className="mt-2 text-sm font-medium">{CONTACT.phoneDisplay}</p>
+          </a>
+          <a href={CONTACT.instagram} target="_blank" rel="noreferrer" className="group bg-card p-6 hover:bg-sand">
+            <p className="eyebrow">Instagram</p>
+            <p className="mt-2 break-all text-sm font-medium">@theposhak.co</p>
+          </a>
+          <div className="bg-card p-6">
+            <p className="eyebrow">Studio</p>
+            <p className="mt-2 text-sm font-medium">{CONTACT.addressLines.map((l) => <span key={l} className="block">{l}</span>)}</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
