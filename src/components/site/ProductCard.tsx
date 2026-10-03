@@ -12,7 +12,7 @@ export function ProductCard({ p, showAdd = false }: { p: Product; showAdd?: bool
   const soldOut = p.stock <= 0;
 
   const add = (size: string) => {
-    addToCart({ productId: p.id, slug: p.slug, title: p.title, image: p.images[0], price: p.price, size, color: p.colors[0]?.name ?? "Default" });
+    addToCart({ productId: p.id, slug: p.slug, title: p.title, image: p.images[0] ?? "", price: p.price, size, color: p.colors[0]?.name ?? "Default" });
     setQuick(false);
   };
 

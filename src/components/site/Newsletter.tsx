@@ -15,7 +15,7 @@ export function Newsletter({ dark = false }: { dark?: boolean }) {
       onSubmit={async (e) => {
         e.preventDefault();
         const r = z.string().trim().email().max(255).safeParse(email);
-        if (!r.success) return toast.error("Please enter a valid email.");
+        if (!r.success) { toast.error("Please enter a valid email."); return; }
         setBusy(true);
         try {
           await sub({ data: { email: r.data } });

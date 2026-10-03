@@ -9,16 +9,16 @@ import { useStore } from "@/lib/store";
 import { inr } from "@/lib/catalog";
 
 type Search = {
-  q?: string;
-  category?: string;
-  gender?: string;
-  collection?: string;
-  sort?: string;
-  sizes?: string;
-  colors?: string;
-  max?: number;
-  instock?: boolean;
-  wishlist?: boolean;
+  q?: string | undefined;
+  category?: string | undefined;
+  gender?: string | undefined;
+  collection?: string | undefined;
+  sort?: string | undefined;
+  sizes?: string | undefined;
+  colors?: string | undefined;
+  max?: number | undefined;
+  instock?: boolean | undefined;
+  wishlist?: boolean | undefined;
 };
 
 const str = (v: unknown) => (typeof v === "string" && v.length > 0 && v.length < 100 ? v : undefined);

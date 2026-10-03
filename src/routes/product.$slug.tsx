@@ -82,7 +82,7 @@ function ProductPage() {
 
   const add = (buyNow = false) => {
     if (!size) { setSizeErr(true); toast.error("Please choose a size."); return; }
-    addToCart({ productId: p.id, slug: p.slug, title: p.title, image: images[0], price: p.price, size, color: p.colors[color]?.name ?? "Default" }, qty);
+    addToCart({ productId: p.id, slug: p.slug, title: p.title, image: images[0] ?? "", price: p.price, size, color: p.colors[color]?.name ?? "Default" }, qty);
     if (buyNow) navigate({ to: "/cart" });
   };
 
@@ -255,7 +255,7 @@ function NotifyMe() {
       className="mt-4 space-y-3"
       onSubmit={(e) => {
         e.preventDefault();
-        if (!/^\S+@\S+\.\S+$/.test(email)) return toast.error("Enter a valid email.");
+        if (!/^\S+@\S+\.\S+$/.test(email)) { toast.error("Enter a valid email."); return; }
         toast.success("We'll email you when it's back.");
         setEmail("");
       }}

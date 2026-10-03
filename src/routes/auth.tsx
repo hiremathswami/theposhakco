@@ -11,8 +11,8 @@ import cOversized from "@/assets/c-oversized.jpg";
 import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    redirect: typeof s.redirect === "string" && s.redirect.startsWith("/") && !s.redirect.startsWith("//") ? s.redirect : undefined,
+  validateSearch: (s: Record<string, unknown>): { redirect?: string | undefined } => ({
+    redirect: typeof s["redirect"] === "string" && s["redirect"].startsWith("/") && !s["redirect"].startsWith("//") ? s["redirect"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -41,18 +41,18 @@ function AuthPage() {
   const [name, setName] = useState("");
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ email?: string; password?: string; name?: string }>({});
 
   const go = () => navigate({ to: redirect ?? "/" });
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: { email?: string; password?: string; name?: string } = {};
     const em = emailS.safeParse(email);
-    if (!em.success) errs.email = em.error.issues[0].message;
+    if (!em.success) errs.email = em.error.issues[0]?.message ?? "Invalid";
     if (mode !== "forgot") {
       const pw = mode === "signup" ? passS.safeParse(password) : z.string().min(1, "Enter your password").safeParse(password);
-      if (!pw.success) errs.password = pw.error.issues[0].message;
+      if (!pw.success) errs.password = pw.error.issues[0]?.message ?? "Invalid";
     }
     if (mode === "signup" && (name.trim().length < 2 || name.length > 80)) errs.name = "Enter your name";
     setErrors(errs);
@@ -88,7 +88,7 @@ function AuthPage() {
 
   async function google() {
     const r = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (r.error) return toast.error("Google sign-in failed. Please try again.");
+    if (r.error) { toast.error("Google sign-in failed. Please try again."); return; }
     if (r.redirected) return;
     go();
   }
