@@ -206,7 +206,7 @@ function ProductPage() {
 
           <Tabs defaultValue="desc" className="mt-6">
             <TabsList className="h-auto w-full justify-start gap-4 overflow-x-auto rounded-none border-b border-border bg-transparent p-0">
-              {[["desc", "Description"], ["fabric", "Fabric"], ["ship", "Shipping"], ["returns", "Returns"], ["care", "Care"]].map(([v, l]) => (
+              {([["desc", "Description"], ["fabric", "Fabric"], ["ship", "Shipping"], ["returns", "Returns"], ["care", "Care"]] as const).map(([v, l]) => (
                 <TabsTrigger key={v} value={v} className="rounded-none border-b-2 border-transparent px-0 pb-2 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none">{l}</TabsTrigger>
               ))}
             </TabsList>
