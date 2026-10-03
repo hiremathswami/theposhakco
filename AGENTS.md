@@ -15,3 +15,4 @@
 - AI stylist recommendations run in a server function (src/lib/stylist.functions.ts) that sends the in-stock catalog to the AI Gateway and keeps only slugs that exist, so the model can never surface unknown products.
 - Orders are created only by the placeOrder server function (src/lib/orders.functions.ts), which reprices items, applies coupons and decrements stock server-side with the admin client; clients can't insert orders directly.
 - The /admin panel uses the browser client and relies on has_role('admin') row rules for every read/write; the role check in the UI is a hint only.
+- Uploaded product photos go to the private product-images bucket and are stored as /api/public/product-image/<path>, served by that read-only route, because public buckets are blocked in this workspace.

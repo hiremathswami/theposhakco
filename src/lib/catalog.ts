@@ -29,7 +29,7 @@ const IMAGES: Record<string, string> = {
 /** Product images are stored as keys or full URLs (uploaded later). */
 export function img(key: string | undefined): string {
   if (!key) return pSignature;
-  if (key.startsWith("http")) return key;
+  if (key.startsWith("http") || key.startsWith("/")) return key;
   return IMAGES[key] ?? pSignature;
 }
 
