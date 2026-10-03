@@ -51,7 +51,7 @@ export function Reveal({ children, className, delay = 0 }: { children: ReactNode
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "0px 0px -80px 0px" }}
-      variants={{ hidden: fadeUp.hidden!, show: { opacity: 1, y: 0, transition: { duration: DUR.reveal, ease: EASE, delay } } }}
+      variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: DUR.reveal, ease: EASE, delay } } }}
     >
       {children}
     </motion.div>
