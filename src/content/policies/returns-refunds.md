@@ -40,14 +40,14 @@ Returned items are inspected on arrival. If an item fails the quality check, we 
 - Original shipping charges are non-refundable except where the item was damaged, defective, or incorrect.
 - Banks and payment providers may take additional time to reflect the refund in your account.
 
-5. EXCHANGES
+6. EXCHANGES
 
 Size exchanges are subject to stock availability. If the requested size is unavailable, we will offer a refund or store credit.
 
-6. DAMAGED, DEFECTIVE, OR WRONG ITEMS
+7. DAMAGED, DEFECTIVE, OR WRONG ITEMS
 
 If you receive a damaged, defective, or incorrect product, report it within 48 hours of delivery. We will arrange a replacement or full refund, including shipping charges, after verification.
 
-7. CONTACT AND GRIEVANCES
+8. CONTACT AND GRIEVANCES
 
 For return questions contact {{support_email}} or {{support_phone}}. If you are not satisfied with our response, write to our Grievance Officer, {{grievance_name}}, at {{grievance_email}}. Nothing in this policy limits your rights under the Consumer Protection Act, 2019 and the Consumer Protection (E-Commerce) Rules, 2020.
