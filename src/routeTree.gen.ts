@@ -23,7 +23,6 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ReturnsRefundsRouteImport } from './routes/returns-refunds'
 import { Route as ShippingPolicyRouteImport } from './routes/shipping-policy'
 import { Route as ShopRouteImport } from './routes/shop'
-import { Route as StylistRouteImport } from './routes/stylist'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
@@ -31,6 +30,7 @@ import { Route as AdminLegalRouteImport } from './routes/admin.legal'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as OrderOrderNumberRouteImport } from './routes/order.$orderNumber'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as ApiPublicProductImageSplatRouteImport } from './routes/api/public/product-image.$'
@@ -105,11 +105,6 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StylistRoute = StylistRouteImport.update({
-  id: '/stylist',
-  path: '/stylist',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
   id: '/terms-and-conditions',
   path: '/terms-and-conditions',
@@ -145,6 +140,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrderOrderNumberRoute = OrderOrderNumberRouteImport.update({
   id: '/order/$orderNumber',
   path: '/order/$orderNumber',
@@ -177,13 +177,13 @@ export interface FileRoutesByFullPath {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
-  '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/chat': typeof ApiChatRoute
   '/order/$orderNumber': typeof OrderOrderNumberRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -203,13 +203,13 @@ export interface FileRoutesByTo {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
-  '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/chat': typeof ApiChatRoute
   '/order/$orderNumber': typeof OrderOrderNumberRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -231,13 +231,13 @@ export interface FileRoutesById {
   '/returns-refunds': typeof ReturnsRefundsRoute
   '/shipping-policy': typeof ShippingPolicyRoute
   '/shop': typeof ShopRoute
-  '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/chat': typeof ApiChatRoute
   '/order/$orderNumber': typeof OrderOrderNumberRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -260,13 +260,13 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
-    | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
+    | '/api/chat'
     | '/order/$orderNumber'
     | '/product/$slug'
     | '/admin/'
@@ -286,13 +286,13 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
-    | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
+    | '/api/chat'
     | '/order/$orderNumber'
     | '/product/$slug'
     | '/admin'
@@ -313,13 +313,13 @@ export interface FileRouteTypes {
     | '/returns-refunds'
     | '/shipping-policy'
     | '/shop'
-    | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
+    | '/api/chat'
     | '/order/$orderNumber'
     | '/product/$slug'
     | '/admin/'
@@ -341,8 +341,8 @@ export interface RootRouteChildren {
   ReturnsRefundsRoute: typeof ReturnsRefundsRoute
   ShippingPolicyRoute: typeof ShippingPolicyRoute
   ShopRoute: typeof ShopRoute
-  StylistRoute: typeof StylistRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  ApiChatRoute: typeof ApiChatRoute
   OrderOrderNumberRoute: typeof OrderOrderNumberRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiPublicProductImageSplatRoute: typeof ApiPublicProductImageSplatRoute
@@ -448,13 +448,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/stylist': {
-      id: '/stylist'
-      path: '/stylist'
-      fullPath: '/stylist'
-      preLoaderRoute: typeof StylistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/terms-and-conditions': {
       id: '/terms-and-conditions'
       path: '/terms-and-conditions'
@@ -503,6 +496,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/users'
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/order/$orderNumber': {
       id: '/order/$orderNumber'
@@ -563,8 +563,8 @@ const rootRouteChildren: RootRouteChildren = {
   ReturnsRefundsRoute: ReturnsRefundsRoute,
   ShippingPolicyRoute: ShippingPolicyRoute,
   ShopRoute: ShopRoute,
-  StylistRoute: StylistRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
+  ApiChatRoute: ApiChatRoute,
   OrderOrderNumberRoute: OrderOrderNumberRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiPublicProductImageSplatRoute: ApiPublicProductImageSplatRoute,

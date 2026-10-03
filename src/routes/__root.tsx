@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "@/lib/store";
 import { MotionProvider } from "@/lib/motion";
+import { ChatAssistant } from "@/components/site/ChatAssistant";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MiniCart } from "@/components/site/MiniCart";
@@ -111,6 +112,7 @@ function RootComponent() {
         </main>
         {!bare && <Footer />}
         <MiniCart />
+        {!bare && <ChatAssistant />}
         <Toaster position="bottom-center" />
       </StoreProvider>
       </MotionProvider>
