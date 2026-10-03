@@ -11,6 +11,8 @@ import { productsQuery } from "@/lib/queries";
 import { ProductCard } from "@/components/site/ProductCard";
 import { FeatureStrip } from "@/components/site/FeatureStrip";
 import { Newsletter } from "@/components/site/Newsletter";
+import { motion } from "motion/react";
+import { Reveal, fadeUp, lineReveal, stagger } from "@/lib/motion";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/")({
@@ -53,20 +55,22 @@ function Home() {
     <>
       {/* Hero */}
       <section className="relative -mt-16 overflow-hidden bg-sand md:-mt-[72px]">
-        <img src={hero} alt="Model in an oversized black tarot graphic tee sitting beside a green elephant mural" width={1920} height={960} className="absolute inset-0 h-full w-full object-cover object-[72%_center] md:object-center" />
+        <img src={hero} alt="Model in an oversized black tarot graphic tee sitting beside a green elephant mural" width={1920} height={960} className="animate-hero-zoom absolute inset-0 h-full w-full object-cover object-[72%_center] md:object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-sand/85 via-sand/40 to-transparent md:from-sand/50 md:via-transparent" />
-        <div className="relative mx-auto flex min-h-[620px] max-w-[1400px] flex-col justify-center px-4 pb-16 pt-32 md:min-h-[min(50vw,780px)] md:px-8">
-          <p className="eyebrow mb-5">Indian Streetwear</p>
-          <h1 className="display-xl max-w-[12ch]">
-            <span className="text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.12)]">Built<br />Different.</span>
-            <br />
-            <span className="text-forest-deep">Worn Better.</span>
-          </h1>
-          <p className="mt-6 max-w-sm font-display text-lg leading-snug">Art. Culture. Streetwear.<br />For a generation that wears meaning.</p>
-          <div className="mt-8">
+        <motion.div initial="hidden" animate="show" variants={stagger(0.12, 0.15)} className="relative mx-auto flex min-h-[620px] max-w-[1400px] flex-col justify-center px-4 pb-16 pt-32 md:min-h-[min(50vw,780px)] md:px-8">
+          <motion.p variants={fadeUp} className="eyebrow mb-5">Indian Streetwear</motion.p>
+          <motion.h1 variants={stagger(0.12)} className="display-xl max-w-[12ch]">
+            {[["Built", "text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.12)]"], ["Different.", "text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.12)]"], ["Worn Better.", "text-forest-deep"]].map(([t, c]) => (
+              <span key={t} className="block overflow-hidden pb-[0.06em]">
+                <motion.span variants={lineReveal} className={`block ${c}`}>{t}</motion.span>
+              </span>
+            ))}
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mt-6 max-w-sm font-display text-lg leading-snug">Art. Culture. Streetwear.<br />For a generation that wears meaning.</motion.p>
+          <motion.div variants={fadeUp} className="mt-8">
             <Link to="/shop" search={{ collection: "new-drop" }} className="btn-solid">Shop the drop <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-          <div className="mt-10 flex items-center gap-3">
+          </motion.div>
+          <motion.div variants={fadeUp} className="mt-10 flex items-center gap-3">
             <div className="flex -space-x-2">
               {[cMen, cWomen, cGraphic, cOversized].map((s, i) => (
                 <img key={i} src={s} alt="" className="h-9 w-9 rounded-full border-2 border-ivory object-cover" loading="lazy" />
@@ -79,8 +83,8 @@ function Home() {
                 <span className="ml-1 text-foreground">4.8/5</span>
               </p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         <div className="absolute bottom-10 right-6 md:right-8">
           <VerticalWords words={["Same", "clothes", "different", "people", "bigger", "stories."]} />
         </div>
@@ -90,14 +94,14 @@ function Home() {
 
       {/* New drop */}
       <section className="mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-24">
-        <p className="eyebrow mb-3">Latest collection</p>
+        <Reveal><p className="eyebrow mb-3">Latest collection</p>
         <div className="mb-10 flex items-end gap-6">
           <h2 className="display-lg shrink-0">New Drop</h2>
           <span className="mb-4 hidden h-px flex-1 bg-foreground md:block" />
           <Link to="/shop" search={{ collection: "new-drop" }} className="mb-2 flex shrink-0 items-center gap-2 text-sm hover:underline">View all <ArrowRight className="h-4 w-4" /></Link>
-        </div>
+        </div></Reveal>
         <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
-          {newDrop.map((p) => <ProductCard key={p.id} p={p} showAdd />)}
+          {newDrop.map((p, i) => <Reveal key={p.id} delay={i * 0.06}><ProductCard p={p} showAdd /></Reveal>)}
         </div>
       </section>
 
@@ -120,12 +124,12 @@ function Home() {
         <img src={story} alt="Model in a white elephant emblem tee" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[65%_center] opacity-90" />
         <div className="absolute inset-0 bg-gradient-to-r from-forest-deep via-forest-deep/70 to-transparent" />
         <div className="relative mx-auto flex min-h-[520px] max-w-[1400px] items-center justify-between px-4 py-20 md:px-8">
-          <div className="max-w-lg">
+          <Reveal className="max-w-lg">
             <p className="eyebrow mb-4">More than clothes</p>
             <h2 className="display-xl !text-[clamp(2.5rem,5vw,4.5rem)]">Wear<br />your story.</h2>
             <p className="mt-6 font-display text-lg">Inspired by art. Rooted in culture.<br />Made for the now.</p>
             <Link to="/shop" className="btn-outline mt-8 !border-ivory bg-ivory !text-charcoal hover:!bg-transparent hover:!text-ivory">Shop now <ArrowRight className="h-4 w-4" /></Link>
-          </div>
+          </Reveal>
           <VerticalWords words={["People", "places", "ideas", "emotions", "on a tee"]} />
         </div>
       </section>
@@ -133,8 +137,8 @@ function Home() {
       {/* Bestsellers carousel */}
       {best.length > 0 && (
         <section className="mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-24">
-          <p className="eyebrow mb-3">Most loved</p>
-          <h2 className="display-lg mb-10">Bestsellers</h2>
+          <Reveal><p className="eyebrow mb-3">Most loved</p>
+          <h2 className="display-lg mb-10">Bestsellers</h2></Reveal>
           <Carousel opts={{ align: "start" }}>
             <CarouselContent className="-ml-3 md:-ml-6">
               {best.map((p) => (
@@ -155,21 +159,21 @@ function Home() {
       <section className="border-t border-border bg-card">
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-8 md:py-24">
           <img src={cOversized} alt="Heritage back print tee" loading="lazy" className="aspect-[4/5] w-full object-cover" />
-          <div className="max-w-md">
+          <Reveal className="max-w-md">
             <p className="eyebrow mb-4">Our culture</p>
             <h2 className="display-lg">Art you<br />can wear.</h2>
             <p className="mt-6 text-muted-foreground">Every ThePoshakCo piece starts as an artwork — tarot cards, temple engravings, royal elephants, city walls. We print them on heavyweight cotton so the stories travel with you.</p>
             <Link to="/about" className="btn-outline mt-8">Our story <ArrowRight className="h-4 w-4" /></Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Newsletter */}
       <section className="mx-auto max-w-2xl px-4 py-16 text-center md:py-24">
-        <p className="eyebrow mb-3">Join the crew</p>
+        <Reveal><p className="eyebrow mb-3">Join the crew</p>
         <h2 className="display-lg">First to the drop.</h2>
         <p className="mb-8 mt-4 text-muted-foreground">Early access to new releases and members-only offers. No spam.</p>
-        <div className="mx-auto max-w-md"><Newsletter /></div>
+        <div className="mx-auto max-w-md"><Newsletter /></div></Reveal>
       </section>
     </>
   );

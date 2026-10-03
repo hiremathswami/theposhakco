@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
+import { useMotionPrefs } from "@/lib/motion";
 import logo from "@/assets/logo.png";
 import { CONTACT } from "@/lib/contact";
 import { Newsletter } from "./Newsletter";
@@ -64,10 +65,21 @@ export function Footer() {
       <div className="border-t border-primary-foreground/10">
         <div className="mx-auto flex max-w-[1400px] flex-col justify-between gap-3 px-4 py-5 text-xs text-primary-foreground/60 sm:flex-row md:px-8">
           <span>© {new Date().getFullYear()} ThePoshakCo. All rights reserved.</span>
+          <ReduceMotionToggle />
           <span>UPI · Visa · Mastercard · RuPay · Cash on Delivery</span>
           <span>Art. Culture. Streetwear.</span>
         </div>
       </div>
     </footer>
+  );
+}
+
+function ReduceMotionToggle() {
+  const { reduce, setReduce } = useMotionPrefs();
+  return (
+    <label className="flex cursor-pointer items-center gap-2">
+      <input type="checkbox" checked={reduce} onChange={(e) => setReduce(e.target.checked)} className="h-3.5 w-3.5 accent-current" />
+      Reduce motion
+    </label>
   );
 }
