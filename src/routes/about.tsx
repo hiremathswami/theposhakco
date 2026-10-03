@@ -66,7 +66,11 @@ function About() {
           <p className="eyebrow mb-4">The community</p>
           <h2 className="display-lg max-w-2xl">Same clothes. Different people. Bigger stories.</h2>
           <div className="mt-12 grid grid-cols-3 gap-2 md:gap-4">
-            {[cMen, cWomen, cGraphic].map((s, i) => <img key={i} src={s} alt="" loading="lazy" className="aspect-[4/5] w-full object-cover" />)}
+            {[
+              [cMen, "Young man wearing a ThePoshakCo oversized graphic tee on the street"],
+              [cWomen, "Woman styling a ThePoshakCo printed streetwear tee"],
+              [cGraphic, "Close-up of a ThePoshakCo art-inspired graphic tee print"],
+            ].map(([s, a]) => <img key={s} src={s} alt={a} loading="lazy" className="aspect-[4/5] w-full object-cover" />)}
           </div>
           <Link to="/shop" className="btn-outline mt-12 !border-ivory !text-ivory hover:!bg-ivory hover:!text-charcoal">Browse the collection <ArrowRight className="h-4 w-4" /></Link>
         </div>
