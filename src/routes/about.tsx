@@ -90,7 +90,7 @@ function About() {
           </a>
           <div className="bg-card p-6">
             <p className="eyebrow">Studio</p>
-            <p className="mt-2 text-sm font-medium">{CONTACT.addressLines.map((l) => <span key={l} className="block">{l}</span>)}</p>
+            <p className="mt-2 text-sm font-medium">{CONTACT.addressLines.map((l: string) => <span key={l} className="block">{l}</span>)}</p>
           </div>
         </div>
       </section>
