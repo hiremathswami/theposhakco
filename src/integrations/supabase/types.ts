@@ -97,6 +97,137 @@ export type Database = {
         }
         Relationships: []
       }
+      order_items: {
+        Row: {
+          color: string
+          id: string
+          image: string
+          order_id: string
+          product_id: string | null
+          quantity: number
+          size: string
+          slug: string
+          title: string
+          unit_price: number
+        }
+        Insert: {
+          color: string
+          id?: string
+          image?: string
+          order_id: string
+          product_id?: string | null
+          quantity: number
+          size: string
+          slug: string
+          title: string
+          unit_price: number
+        }
+        Update: {
+          color?: string
+          id?: string
+          image?: string
+          order_id?: string
+          product_id?: string | null
+          quantity?: number
+          size?: string
+          slug?: string
+          title?: string
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          address_line1: string
+          address_line2: string | null
+          admin_notes: string | null
+          city: string
+          coupon_code: string | null
+          created_at: string
+          delivery_method: string
+          discount: number
+          email: string
+          full_name: string
+          id: string
+          order_number: string
+          payment_method: string
+          payment_reference: string | null
+          payment_status: string
+          phone: string
+          pincode: string
+          shipping: number
+          state: string
+          status: string
+          subtotal: number
+          total: number
+          tracking_number: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          address_line1: string
+          address_line2?: string | null
+          admin_notes?: string | null
+          city: string
+          coupon_code?: string | null
+          created_at?: string
+          delivery_method?: string
+          discount?: number
+          email: string
+          full_name: string
+          id?: string
+          order_number?: string
+          payment_method: string
+          payment_reference?: string | null
+          payment_status?: string
+          phone: string
+          pincode: string
+          shipping?: number
+          state: string
+          status?: string
+          subtotal: number
+          total: number
+          tracking_number?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          address_line1?: string
+          address_line2?: string | null
+          admin_notes?: string | null
+          city?: string
+          coupon_code?: string | null
+          created_at?: string
+          delivery_method?: string
+          discount?: number
+          email?: string
+          full_name?: string
+          id?: string
+          order_number?: string
+          payment_method?: string
+          payment_reference?: string | null
+          payment_status?: string
+          phone?: string
+          pincode?: string
+          shipping?: number
+          state?: string
+          status?: string
+          subtotal?: number
+          total?: number
+          tracking_number?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           care: string | null
