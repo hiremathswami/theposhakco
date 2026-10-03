@@ -7,7 +7,6 @@ import cMen from "@/assets/c-men.jpg";
 import cWomen from "@/assets/c-women.jpg";
 import cGraphic from "@/assets/c-graphic.jpg";
 import cOversized from "@/assets/c-oversized.jpg";
-import logo from "@/assets/logo.png";
 import { productsQuery } from "@/lib/queries";
 import { ProductCard } from "@/components/site/ProductCard";
 import { FeatureStrip } from "@/components/site/FeatureStrip";
