@@ -21,6 +21,8 @@ export const Route = createFileRoute("/")({
       { title: "ThePoshakCo — Built Different. Worn Better." },
       { name: "description", content: "Premium Indian streetwear. Oversized graphic tees inspired by art, culture and people." },
       { property: "og:title", content: "ThePoshakCo — Built Different. Worn Better." },
+      { property: "og:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
       { property: "og:description", content: "Premium Indian streetwear. Art. Culture. Streetwear." },
     ],
   }),

@@ -41,6 +41,8 @@ export const Route = createFileRoute("/shop")({
       { title: "Shop All — ThePoshakCo" },
       { name: "description", content: "Shop oversized graphic tees, minimal essentials and new drops from ThePoshakCo." },
       { property: "og:title", content: "Shop All — ThePoshakCo" },
+      { property: "og:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
       { property: "og:description", content: "Oversized graphic tees, minimal essentials and new drops." },
     ],
   }),
