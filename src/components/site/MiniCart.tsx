@@ -2,9 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { Minus, Plus, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useStore } from "@/lib/store";
-import { FREE_SHIPPING_MIN, img, inr } from "@/lib/catalog";
+import { img, inr } from "@/lib/catalog";
+import { useFreeShippingMin } from "@/lib/use-legal";
 
 export function FreeShippingBar({ subtotal }: { subtotal: number }) {
+  const FREE_SHIPPING_MIN = useFreeShippingMin() || 1;
   const left = Math.max(0, FREE_SHIPPING_MIN - subtotal);
   const pct = Math.min(100, (subtotal / FREE_SHIPPING_MIN) * 100);
   return (

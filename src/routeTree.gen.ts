@@ -27,6 +27,7 @@ import { Route as StylistRouteImport } from './routes/stylist'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
+import { Route as AdminLegalRouteImport } from './routes/admin.legal'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
@@ -124,6 +125,11 @@ const AdminCouponsRoute = AdminCouponsRouteImport.update({
   path: '/coupons',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLegalRoute = AdminLegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminOrdersRoute = AdminOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -226,6 +234,7 @@ export interface FileRoutesById {
   '/stylist': typeof StylistRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
+    | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
@@ -279,6 +289,7 @@ export interface FileRouteTypes {
     | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
+    | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/stylist'
     | '/terms-and-conditions'
     | '/admin/coupons'
+    | '/admin/legal'
     | '/admin/orders'
     | '/admin/products'
     | '/admin/users'
@@ -464,6 +476,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCouponsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/legal': {
+      id: '/admin/legal'
+      path: '/legal'
+      fullPath: '/admin/legal'
+      preLoaderRoute: typeof AdminLegalRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/orders': {
       id: '/admin/orders'
       path: '/orders'
@@ -511,6 +530,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminCouponsRoute: typeof AdminCouponsRoute
+  AdminLegalRoute: typeof AdminLegalRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminProductsRoute: typeof AdminProductsRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -519,6 +539,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCouponsRoute: AdminCouponsRoute,
+  AdminLegalRoute: AdminLegalRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminProductsRoute: AdminProductsRoute,
   AdminUsersRoute: AdminUsersRoute,

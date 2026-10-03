@@ -5,7 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Minus, Plus, Trash2, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { useStore } from "@/lib/store";
-import { FREE_SHIPPING_MIN, SHIPPING_FEE, img, inr } from "@/lib/catalog";
+import { SHIPPING_FEE, img, inr } from "@/lib/catalog";
+import { useFreeShippingMin } from "@/lib/use-legal";
 import { validateCoupon } from "@/lib/products.functions";
 import { FreeShippingBar } from "@/components/site/MiniCart";
 import { productsQuery } from "@/lib/queries";
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/cart")({
 
 function CartPage() {
   const { cart, updateQty, removeLine, toggleSaved, toggleWishlist } = useStore();
+  const FREE_SHIPPING_MIN = useFreeShippingMin();
   const lines = cart.filter((l) => !l.savedForLater);
   const saved = cart.filter((l) => l.savedForLater);
   const subtotal = lines.reduce((s, l) => s + l.price * l.quantity, 0);
