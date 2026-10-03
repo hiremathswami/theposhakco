@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useStore } from "@/lib/store";
-import cOversized from "@/assets/c-oversized.jpg";
+import authEditorial from "@/assets/auth-editorial.jpg";
 import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/auth")({
@@ -183,7 +183,7 @@ function AuthPage() {
         </div>
       </div>
       <div className="relative hidden lg:block">
-        <img src={cOversized} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={authEditorial} alt="" loading="lazy" width={1024} height={1536} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
         <p className="absolute bottom-12 left-12 max-w-xs font-display text-5xl italic leading-tight text-ivory">Good clothes.<br />Better people.</p>
       </div>
