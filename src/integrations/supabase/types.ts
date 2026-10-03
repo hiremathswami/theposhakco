@@ -157,16 +157,21 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          marketing_consent: boolean
+          marketing_consent_at: string | null
           order_number: string
           payment_method: string
           payment_reference: string | null
           payment_status: string
           phone: string
           pincode: string
+          policy_version: string | null
           shipping: number
           state: string
           status: string
           subtotal: number
+          terms_accepted: boolean
+          terms_accepted_at: string | null
           total: number
           tracking_number: string | null
           updated_at: string
@@ -184,16 +189,21 @@ export type Database = {
           email: string
           full_name: string
           id?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
           order_number?: string
           payment_method: string
           payment_reference?: string | null
           payment_status?: string
           phone: string
           pincode: string
+          policy_version?: string | null
           shipping?: number
           state: string
           status?: string
           subtotal: number
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
           total: number
           tracking_number?: string | null
           updated_at?: string
@@ -211,20 +221,43 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
           order_number?: string
           payment_method?: string
           payment_reference?: string | null
           payment_status?: string
           phone?: string
           pincode?: string
+          policy_version?: string | null
           shipping?: number
           state?: string
           status?: string
           subtotal?: number
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
           total?: number
           tracking_number?: string | null
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      policy_pages: {
+        Row: {
+          body: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          slug?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -327,6 +360,63 @@ export type Database = {
           full_name?: string | null
           id?: string
           phone?: string | null
+        }
+        Relationships: []
+      }
+      store_settings: {
+        Row: {
+          free_shipping_threshold: number
+          grievance_officer_email: string
+          grievance_officer_name: string
+          gstin: string
+          id: number
+          jurisdiction_city: string
+          legal_name: string
+          policy_updated_at: string
+          policy_version: string
+          refund_timeline_days: number
+          registered_address: string
+          return_window_days: number
+          shipping_time: string
+          support_email: string
+          support_phone: string
+          updated_at: string
+        }
+        Insert: {
+          free_shipping_threshold?: number
+          grievance_officer_email?: string
+          grievance_officer_name?: string
+          gstin?: string
+          id?: number
+          jurisdiction_city?: string
+          legal_name?: string
+          policy_updated_at?: string
+          policy_version?: string
+          refund_timeline_days?: number
+          registered_address?: string
+          return_window_days?: number
+          shipping_time?: string
+          support_email?: string
+          support_phone?: string
+          updated_at?: string
+        }
+        Update: {
+          free_shipping_threshold?: number
+          grievance_officer_email?: string
+          grievance_officer_name?: string
+          gstin?: string
+          id?: number
+          jurisdiction_city?: string
+          legal_name?: string
+          policy_updated_at?: string
+          policy_version?: string
+          refund_timeline_days?: number
+          registered_address?: string
+          return_window_days?: number
+          shipping_time?: string
+          support_email?: string
+          support_phone?: string
+          updated_at?: string
         }
         Relationships: []
       }
