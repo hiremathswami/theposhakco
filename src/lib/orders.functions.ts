@@ -19,6 +19,8 @@ const Input = z.object({
   payment: z.enum(["cod", "upi"]),
   upiRef: z.string().trim().max(40).default(""),
   coupon: z.string().trim().max(40).default(""),
+  acceptTerms: z.literal(true),
+  marketingConsent: z.boolean().default(false),
   items: z
     .array(
       z.object({
@@ -79,7 +81,10 @@ export const placeOrder = createServerFn({ method: "POST" })
       discount = Math.min(subtotal, c.kind === "percent" ? Math.round((subtotal * c.value) / 100) : c.value);
       couponCode = c.code;
     }
-    const shipping = data.delivery === "express" ? EXPRESS_FEE : subtotal >= FREE_SHIPPING_MIN ? 0 : SHIPPING_FEE;
+    const { data: settings } = await supabaseAdmin.from("store_settings").select("free_shipping_threshold,policy_version").eq("id", 1).maybeSingle();
+    const freeMin = settings?.free_shipping_threshold ?? FREE_SHIPPING_MIN;
+    const shipping = data.delivery === "express" ? EXPRESS_FEE : subtotal >= freeMin ? 0 : SHIPPING_FEE;
+    const now = new Date().toISOString();
     const total = subtotal - discount + shipping;
 
     const { data: order, error: oe } = await supabaseAdmin
@@ -103,6 +108,11 @@ export const placeOrder = createServerFn({ method: "POST" })
         shipping,
         total,
         coupon_code: couponCode,
+        terms_accepted: true,
+        terms_accepted_at: now,
+        policy_version: settings?.policy_version ?? "1.0",
+        marketing_consent: data.marketingConsent,
+        marketing_consent_at: data.marketingConsent ? now : null,
       })
       .select("id,order_number")
       .single();

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, Package, ShoppingBag, Ticket, ArrowLeft, Users } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, Ticket, ArrowLeft, Users, Scale } from "lucide-react";
 import { useIsAdmin } from "@/lib/admin";
 
 export const Route = createFileRoute("/admin")({
@@ -24,6 +24,7 @@ const LINKS = [
   { to: "/admin/products", label: "Products", icon: Package, exact: false },
   { to: "/admin/users", label: "Users", icon: Users, exact: false },
   { to: "/admin/coupons", label: "Coupons", icon: Ticket, exact: false },
+  { to: "/admin/legal", label: "Legal & policies", icon: Scale, exact: false },
 ] as const;
 
 function AdminLayout() {

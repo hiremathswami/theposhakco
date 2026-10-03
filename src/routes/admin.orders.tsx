@@ -32,7 +32,7 @@ function Orders() {
   }
 
   function exportCsv() {
-    const cols = ["order_number", "created_at", "full_name", "email", "phone", "city", "state", "pincode", "payment_method", "payment_status", "status", "subtotal", "discount", "shipping", "total", "tracking_number"] as const;
+    const cols = ["order_number", "created_at", "full_name", "email", "phone", "city", "state", "pincode", "payment_method", "payment_status", "status", "subtotal", "discount", "shipping", "total", "tracking_number", "terms_accepted_at", "policy_version", "marketing_consent"] as const;
     const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const csv = [cols.join(","), ...shown.map((o) => cols.map((c) => esc(o[c])).join(","))].join("\n");
     const a = document.createElement("a");
@@ -79,6 +79,11 @@ function Orders() {
                   <p className="eyebrow mb-2 mt-5">Ship to</p>
                   <p>{o.full_name}<br />{o.address_line1}{o.address_line2 ? `, ${o.address_line2}` : ""}<br />{o.city}, {o.state} {o.pincode}<br />{o.phone} · {o.email}</p>
                   {o.payment_reference && <p className="mt-3">UPI transaction ID: <strong>{o.payment_reference}</strong></p>}
+                  <p className="eyebrow mb-2 mt-5">Consent</p>
+                  <p className="text-muted-foreground">
+                    Terms & Privacy: {o.terms_accepted && o.terms_accepted_at ? `accepted ${new Date(o.terms_accepted_at).toLocaleString("en-IN")} (v${o.policy_version ?? "—"})` : "not recorded"}<br />
+                    Marketing: {o.marketing_consent && o.marketing_consent_at ? `opted in ${new Date(o.marketing_consent_at).toLocaleString("en-IN")}` : "no"}
+                  </p>
                 </div>
                 <div className="space-y-3">
                   <label className="block"><span className="eyebrow">Order status</span>

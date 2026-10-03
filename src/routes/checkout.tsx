@@ -3,7 +3,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Lock, Loader2 } from "lucide-react";
 import { useStore } from "@/lib/store";
-import { FREE_SHIPPING_MIN, SHIPPING_FEE, img, inr } from "@/lib/catalog";
+import { SHIPPING_FEE, img, inr } from "@/lib/catalog";
+import { useLegal } from "@/lib/use-legal";
 import { placeOrder } from "@/lib/orders.functions";
 import { validateCoupon } from "@/lib/products.functions";
 import { CONTACT } from "@/lib/contact";
@@ -27,6 +28,8 @@ const EXPRESS_FEE = 149;
 
 function Checkout() {
   const { cart, user, clearCart } = useStore();
+  const { settings } = useLegal();
+  const FREE_SHIPPING_MIN = settings.free_shipping_threshold;
   const navigate = useNavigate();
   const place = useServerFn(placeOrder);
   const check = useServerFn(validateCoupon);
@@ -40,6 +43,7 @@ function Checkout() {
   const [code, setCode] = useState("");
   const [coupon, setCoupon] = useState<{ code: string; discount: number } | null>(null);
   const [agree, setAgree] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -63,12 +67,12 @@ function Checkout() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!agree) return setError("Please accept the terms to continue.");
+    if (!agree) return setError("Please confirm you have read and agree to the Terms & Conditions and Privacy Policy.");
     setBusy(true);
     try {
       const r = await place({
         data: {
-          ...f, delivery, payment, upiRef, coupon: coupon?.code ?? "",
+          ...f, delivery, payment, upiRef, coupon: coupon?.code ?? "", acceptTerms: true, marketingConsent: marketing,
           items: lines.map((l) => ({ productId: l.productId, size: l.size, color: l.color, quantity: l.quantity })),
         },
       });
@@ -116,7 +120,7 @@ function Checkout() {
             <div className="grid gap-3 sm:grid-cols-2">
               <label className={radio(delivery === "standard")}>
                 <input type="radio" name="delivery" checked={delivery === "standard"} onChange={() => setDelivery("standard")} />
-                <span><strong>Standard</strong> · 4–7 days<br /><span className="text-sm text-muted-foreground">{subtotal >= FREE_SHIPPING_MIN ? "Free" : inr(SHIPPING_FEE)}</span></span>
+                <span><strong>Standard</strong> · {settings.shipping_time}<br /><span className="text-sm text-muted-foreground">{subtotal >= FREE_SHIPPING_MIN ? "Free" : inr(SHIPPING_FEE)}</span></span>
               </label>
               <label className={radio(delivery === "express")}>
                 <input type="radio" name="delivery" checked={delivery === "express"} onChange={() => setDelivery("express")} />
@@ -172,8 +176,13 @@ function Checkout() {
             <div className="flex justify-between border-t border-border pt-3 font-display text-2xl"><dt>Total</dt><dd>{inr(total)}</dd></div>
           </dl>
           <label className="mt-5 flex items-start gap-2 text-xs">
-            <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5" />
-            <span>I agree to the terms, and the 7-day return policy.</span>
+            <input type="checkbox" required checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5" aria-describedby="terms-note" />
+            <span>I have read and agree to the <Link to="/terms-and-conditions" target="_blank" className="underline">Terms & Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="underline">Privacy Policy</Link>. <span className="text-blood">*</span></span>
+          </label>
+          <p id="terms-note" className="mt-1 pl-5 text-[11px] text-muted-foreground">Returns within {settings.return_window_days} days — see our <Link to="/returns-refunds" target="_blank" className="underline">Returns & Refunds Policy</Link>.</p>
+          <label className="mt-3 flex items-start gap-2 text-xs">
+            <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} className="mt-0.5" />
+            <span>Optional: send me new drops and offers by email, SMS and WhatsApp. I can unsubscribe anytime.</span>
           </label>
           {error && <p role="alert" className="mt-4 border border-blood/40 p-3 text-sm text-blood">{error}</p>}
           <button disabled={busy} className="btn-solid mt-5 w-full disabled:opacity-60">
