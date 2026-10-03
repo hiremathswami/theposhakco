@@ -13,6 +13,8 @@ export const Route = createFileRoute("/about")({
       { title: "Our Story — ThePoshakCo" },
       { name: "description", content: "ThePoshakCo is an Indian streetwear brand inspired by art, culture and the people who make the streets alive." },
       { property: "og:title", content: "More Than Clothes — ThePoshakCo" },
+      { property: "og:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://theposhakco.lovable.app/og-image.jpg" },
       { property: "og:description", content: "An Indian streetwear brand inspired by art, culture and people." },
     ],
   }),
