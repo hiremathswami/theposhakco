@@ -21,3 +21,4 @@
 - Motion timings, easing, variants and the Reveal/MotionProvider (site-level reduce-motion toggle + prefers-reduced-motion) live in src/lib/motion.tsx so all animation shares one set of tokens.
 - The shopping assistant chat streams from the /api/chat server route, which loads the in-stock catalog into the system prompt so the model only links real products; the single conversation is kept in the shopper's browser.
 - Storefront product queries are refreshed on every open device via a realtime subscription on the products table (src/lib/live-products.tsx, mounted in __root).
+- The homepage culture film is served through a Lovable Assets pointer and plays only while visible; motion preferences suppress automatic playback so the editorial section stays accessible.
