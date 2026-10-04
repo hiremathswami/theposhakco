@@ -118,7 +118,7 @@ function ChatWindow({ initial, onClose }: { initial: UIMessage[]; onClose: () =>
         <span>Need a person?</span>
         <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-foreground">WhatsApp</a>
         <a href={`mailto:${CONTACT.email}`} className="underline underline-offset-2 hover:text-foreground">Email</a>
-        <a href="/contact" className="underline underline-offset-2 hover:text-foreground">Contact page</a>
+        <a href="/track-order" className="underline underline-offset-2 hover:text-foreground">Track order</a>
       </div>
       <div className="border-t border-border p-3">
         <PromptInput onSubmit={(msg) => send(msg.text)}>

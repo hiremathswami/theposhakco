@@ -69,7 +69,7 @@ function Confirmation() {
         <div className="flex justify-between border-t border-border pt-3 font-display text-2xl"><dt>Total</dt><dd>{inr(o.total)}</dd></div>
         <div className="flex justify-between text-muted-foreground"><dt>Payment</dt><dd>{o.payment_method.toUpperCase()} · {label(o.payment_status)}</dd></div>
       </dl>
-      <div className="mt-10 text-center"><Link to="/shop" className="btn-solid">Continue shopping</Link></div>
+      <div className="mt-10 flex flex-wrap justify-center gap-3"><Link to="/track-order" search={{ order: o.order_number }} className="btn-outline">Track this order</Link><Link to="/shop" className="btn-solid">Continue shopping</Link></div>
     </div>
   );
 }
