@@ -10,6 +10,7 @@ import cOversized from "@/assets/c-oversized.jpg";
 import { productsQuery } from "@/lib/queries";
 import { ProductCard } from "@/components/site/ProductCard";
 import { FeatureStrip } from "@/components/site/FeatureStrip";
+import { CultureVideo } from "@/components/site/CultureVideo";
 import { Newsletter } from "@/components/site/Newsletter";
 import { motion } from "motion/react";
 import { Reveal, fadeUp, lineReveal, stagger } from "@/lib/motion";
@@ -160,7 +161,7 @@ function Home() {
       {/* Culture */}
       <section className="border-t border-border bg-card">
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-8 md:py-24">
-          <img src={cOversized} alt="Heritage back print tee" loading="lazy" className="aspect-[4/5] w-full object-cover" />
+          <CultureVideo />
           <Reveal className="max-w-md">
             <p className="eyebrow mb-4">Our culture</p>
             <h2 className="display-lg">Art you<br />can wear.</h2>
