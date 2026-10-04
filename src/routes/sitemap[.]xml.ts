@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 const BASE_URL = "https://theposhakco.lovable.app";
 const STATIC_PATHS = [
-  "/", "/shop", "/about", "/contact",
+  "/", "/shop", "/about", "/contact", "/track-order",
   "/privacy-policy", "/terms-and-conditions", "/shipping-policy",
   "/returns-refunds", "/cancellation-policy", "/cookie-policy",
 ];

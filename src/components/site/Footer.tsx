@@ -35,6 +35,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <h3 className="eyebrow mb-4 font-sans">Help</h3>
           <div className={col}>
+            <Link to="/track-order">Track your order</Link>
             <Link to="/contact">Contact & Grievances</Link>
             <Link to="/shipping-policy">Shipping Policy</Link>
             <Link to="/returns-refunds">Returns & Refunds</Link>

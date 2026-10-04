@@ -25,6 +25,7 @@ import { Route as ShippingPolicyRouteImport } from './routes/shipping-policy'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
 import { Route as AdminLegalRouteImport } from './routes/admin.legal'
@@ -116,6 +117,11 @@ const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
   path: '/terms-and-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackOrderRoute = TrackOrderRouteImport.update({
+  id: '/track-order',
+  path: '/track-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -212,6 +219,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -241,6 +249,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
   '/admin/coupons': typeof AdminCouponsRoute
   '/admin/legal': typeof AdminLegalRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -271,6 +280,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/terms-and-conditions'
+    | '/track-order'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
@@ -298,6 +308,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/terms-and-conditions'
+    | '/track-order'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
@@ -326,6 +337,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/terms-and-conditions'
+    | '/track-order'
     | '/admin/coupons'
     | '/admin/legal'
     | '/admin/orders'
@@ -355,6 +367,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  TrackOrderRoute: typeof TrackOrderRoute
   ApiChatRoute: typeof ApiChatRoute
   OrderOrderNumberRoute: typeof OrderOrderNumberRoute
   ProductSlugRoute: typeof ProductSlugRoute
@@ -475,6 +488,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsAndConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/track-order': {
+      id: '/track-order'
+      path: '/track-order'
+      fullPath: '/track-order'
+      preLoaderRoute: typeof TrackOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -585,6 +605,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
+  TrackOrderRoute: TrackOrderRoute,
   ApiChatRoute: ApiChatRoute,
   OrderOrderNumberRoute: OrderOrderNumberRoute,
   ProductSlugRoute: ProductSlugRoute,
