@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMotionPrefs } from "@/lib/motion";
-import videoAsset from "@/assets/culture-street-dance.mp4.asset.json";
+import videoAsset from "@/assets/culture-street-dance.webm.asset.json";
 import posterAsset from "@/assets/culture-poster.jpg.asset.json";
 
 export function CultureVideo() {
