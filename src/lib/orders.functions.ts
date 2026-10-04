@@ -164,3 +164,23 @@ export const getOrderConfirmation = createServerFn({ method: "GET" })
       .maybeSingle();
     return o;
   });
+
+export const trackOrder = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) =>
+    z.object({ orderNumber: z.string().trim().min(4).max(30), contact: z.string().trim().min(5).max(255) }).parse(d),
+  )
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: o } = await supabaseAdmin
+      .from("orders")
+      .select("order_number,email,phone,city,pincode,status,payment_method,payment_status,tracking_number,delivery_method,total,created_at,updated_at,order_items(title,size,color,quantity,image)")
+      .eq("order_number", data.orderNumber.toUpperCase())
+      .maybeSingle();
+    if (!o) return null;
+    const c = data.contact.toLowerCase();
+    const digits = (s: string) => s.replace(/\D/g, "").slice(-10);
+    const ok = c.includes("@") ? o.email.toLowerCase() === c : digits(c).length === 10 && digits(o.phone) === digits(c);
+    if (!ok) return null;
+    const { email: _e, phone: _p, ...safe } = o;
+    return safe;
+  });
