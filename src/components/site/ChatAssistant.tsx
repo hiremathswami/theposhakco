@@ -10,9 +10,10 @@ import { PromptInput, PromptInputFooter, PromptInputSubmit, PromptInputTextarea 
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import logo from "@/assets/logo.png";
 import { DUR, EASE } from "@/lib/motion";
+import { CONTACT } from "@/lib/contact";
 
 const KEY = "tpc_chat";
-const IDEAS = ["What should I wear to a college fest?", "Which tee is best under ₹1,000?", "How do your sizes fit?", "What's your return policy?"];
+const IDEAS = ["What should I wear to a college fest?", "Which tee is best under ₹1,000?", "Where is my order?", "How do I contact support?"];
 
 export function ChatAssistant() {
   const [open, setOpen] = useState(false);
@@ -113,6 +114,12 @@ function ChatWindow({ initial, onClose }: { initial: UIMessage[]; onClose: () =>
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
+      <div className="flex items-center gap-3 border-t border-border px-4 py-2 text-xs text-muted-foreground">
+        <span>Need a person?</span>
+        <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-foreground">WhatsApp</a>
+        <a href={`mailto:${CONTACT.email}`} className="underline underline-offset-2 hover:text-foreground">Email</a>
+        <a href="/contact" className="underline underline-offset-2 hover:text-foreground">Contact page</a>
+      </div>
       <div className="border-t border-border p-3">
         <PromptInput onSubmit={(msg) => send(msg.text)}>
           <PromptInputTextarea autoFocus placeholder="Ask about a tee, size or occasion…" />

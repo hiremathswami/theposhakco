@@ -3,10 +3,12 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createClient } from "@supabase/supabase-js";
 import { createLovableAiGatewayRunIdFetch, getLovableAiGatewayRunId, withLovableAiGatewayRunIdHeader } from "@/lib/ai/run-id.server";
+import { CONTACT } from "@/lib/contact";
+import { DEFAULT_SETTINGS } from "@/lib/legal";
 
-async function catalogText() {
+function publicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-  const sb = createClient(process.env["SUPABASE_URL"]!, key, {
+  return createClient(process.env["SUPABASE_URL"]!, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
       fetch: (input, init) => {
@@ -17,6 +19,9 @@ async function catalogText() {
       },
     },
   });
+}
+
+async function catalogText(sb: ReturnType<typeof publicClient>) {
   const { data } = await sb
     .from("products")
     .select("slug,title,subtitle,gender,category,price,sizes,colors,stock,fabric")
@@ -27,9 +32,24 @@ async function catalogText() {
     .join("\n");
 }
 
-const SYSTEM = (catalog: string) => `You are the shopping assistant for ThePoshakCo, a premium Indian streetwear brand (oversized graphic tees inspired by art and culture). Be warm, concise and stylish. Prices are in INR.
-Store facts: free shipping on orders over ₹999, otherwise ₹79; express delivery ₹149; returns within 7 days; payment by Cash on Delivery or UPI. Contact: ThePoshakco@gmail.com, WhatsApp +91 88883 15454.
-Only recommend products from this in-stock catalog, and always link them as markdown, e.g. [The Lovers Tee](/product/the-lovers-tee). Never invent products, prices or policies. Recommend at most 4 items at a time. For order-specific issues, direct shoppers to WhatsApp or email.
+async function supportText(sb: ReturnType<typeof publicClient>) {
+  const { data } = await sb.from("store_settings").select("*").eq("id", 1).maybeSingle();
+  const s = { ...DEFAULT_SETTINGS, ...(data ?? {}) } as typeof DEFAULT_SETTINGS;
+  return `Customer support (always share these exact details when asked or when you can't help):
+- Email: ${s.support_email}
+- Phone / WhatsApp: ${s.support_phone} — chat link ${CONTACT.whatsapp}
+- Instagram: ${CONTACT.instagram}
+- Address: ${s.registered_address}
+- Hours: Mon–Sat, 10am–7pm IST; replies within 1–2 business days
+- Grievance Officer: ${s.grievance_officer_name}, ${s.grievance_officer_email}
+- Contact page: /contact
+Store policies: free shipping on orders over ₹${s.free_shipping_threshold}, otherwise ₹79; express delivery ₹149; delivery in ${s.shipping_time}; returns within ${s.return_window_days} days; refunds within ${s.refund_timeline_days} days of receiving the return; payment by Cash on Delivery or UPI. Policy pages: /shipping-policy, /returns-refunds, /cancellation-policy, /privacy-policy, /terms-and-conditions.`;
+}
+
+const SYSTEM = (catalog: string, support: string) => `You are the shopping and customer-support assistant for ThePoshakCo, a premium Indian streetwear brand (oversized graphic tees inspired by art and culture). Be warm, concise and stylish. Prices are in INR.
+${support}
+You cannot see orders, payments or accounts. For order status, cancellations, damaged items, payment issues or anything needing a person, give the WhatsApp link as markdown [WhatsApp us](${CONTACT.whatsapp}) plus the support email, and ask them to include their order number.
+Only recommend products from this in-stock catalog, and always link them as markdown, e.g. [The Lovers Tee](/product/the-lovers-tee). Never invent products, prices, contact details or policies. Recommend at most 4 items at a time.
 Catalog:
 ${catalog}`;
 
@@ -52,7 +72,7 @@ export const Route = createFileRoute("/api/chat")({
         });
         const result = streamText({
           model: provider.responses("openai/gpt-6-astra"),
-          system: SYSTEM(await catalogText()),
+          system: await (async () => { const sb = publicClient(); const [c, s] = await Promise.all([catalogText(sb), supportText(sb)]); return SYSTEM(c, s); })(),
           messages: await convertToModelMessages(body.messages),
           abortSignal: request.signal,
           providerOptions: {
