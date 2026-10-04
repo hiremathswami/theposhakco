@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play, Volume2, VolumeX } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useMotionPrefs } from "@/lib/motion";
 import videoAsset from "@/assets/culture-street-dance.webm.asset.json";
 import posterAsset from "@/assets/culture-poster.jpg.asset.json";
@@ -8,9 +6,6 @@ import posterAsset from "@/assets/culture-poster.jpg.asset.json";
 export function CultureVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const manuallyPaused = useRef(false);
-  const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(true);
   const [visible, setVisible] = useState(false);
   const [systemReduce, setSystemReduce] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -35,24 +30,12 @@ export function CultureVideo() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video || failed) return;
-    if (!visible || reduce || systemReduce || manuallyPaused.current) {
+    if (!visible || reduce || systemReduce) {
       video.pause();
       return;
     }
-    void video.play().catch(() => setPlaying(false));
+    void video.play().catch(() => {});
   }, [visible, reduce, systemReduce, failed]);
-
-  const togglePlayback = () => {
-    const video = videoRef.current;
-    if (!video || failed) return;
-    if (playing) {
-      manuallyPaused.current = true;
-      video.pause();
-    } else {
-      manuallyPaused.current = false;
-      void video.play().catch(() => setPlaying(false));
-    }
-  };
 
   return (
     <div ref={wrapperRef} className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
@@ -66,23 +49,11 @@ export function CultureVideo() {
           aria-label="ThePoshakCo streetwear film with two models in graphic tees"
           className="h-full w-full object-cover"
           playsInline
-          muted={muted}
+          muted
           loop
           preload="none"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
           onError={() => setFailed(true)}
         />
-      )}
-      {!failed && (
-        <div className="absolute bottom-3 right-3 flex gap-2">
-          <Button type="button" variant="outline" size="icon" onClick={togglePlayback} aria-label={playing ? "Pause video" : "Play video"} title={playing ? "Pause video" : "Play video"} className="rounded-sm border-border bg-background/90 hover:bg-background">
-            {playing ? <Pause /> : <Play />}
-          </Button>
-          <Button type="button" variant="outline" size="icon" onClick={() => setMuted((value) => !value)} aria-label={muted ? "Unmute video" : "Mute video"} title={muted ? "Unmute video" : "Mute video"} className="rounded-sm border-border bg-background/90 hover:bg-background">
-            {muted ? <VolumeX /> : <Volume2 />}
-          </Button>
-        </div>
       )}
     </div>
   );
